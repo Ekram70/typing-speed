@@ -1,0 +1,58 @@
+.countdown {
+  position: relative;
+  margin: auto;
+  width: 6.875rem;
+  height: 6.875rem;
+  text-align: center;
+}
+
+.countdown_number {
+  color: #0f0f10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+h5 {
+  font-size: calc(1.71098rem + 0.87648 * (100vw - 36rem) / 39);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+h6 {
+  font-weight: 400;
+  font-size: 0.875rem;
+  color: #1b1b20;
+}
+
+svg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 6.875rem;
+  height: 6.875rem;
+  transform: rotate(270deg);
+}
+
+svg circle {
+  stroke-dasharray: 332px;
+  stroke-dashoffset: 0px;
+  stroke-linecap: round;
+  stroke-width: 4px;
+  stroke: #ffd000;
+  fill: none;
+  transform: scale(0.98) translate(3px, 3px);
+  animation: countdown 60s linear forwards;
+}
+
+@keyframes countdown {
+  from {
+    stroke-dashoffset: 0px;
+  }
+  to {
+    stroke-dashoffset: 332px;
+  }
+}
