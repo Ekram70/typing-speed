@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+}
+
+.boxes {
+  display: flex;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    flex-direction: column-reverse;
+    margin-top: 25px;
+  }
+}
+
+.textcontent {
+  width: 100%;
+  margin-top: 25px;
+}
+
+.textarea {
+  display: block;
+  width: 500px;
+  height: 100px;
+  margin: 0 auto;
+  resize: none;
+  border: none;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+  padding: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .textarea {
+    width: 90%;
+  }
+}

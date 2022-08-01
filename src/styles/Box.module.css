@@ -1,0 +1,36 @@
+.box {
+  text-align: center;
+  margin-right: 0.75rem;
+  margin-left: 0.75rem;
+}
+
+@media screen and (max-width: 400px) {
+  .box {
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+  }
+}
+
+.number {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  margin-bottom: 0.5rem;
+  font-size: calc(1.71098rem + 0.87648 * (100vw - 36rem) / 39);
+}
+
+@media screen and (max-width: 400px) {
+  .number {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+}
+
+.text {
+  font-weight: 400;
+  font-size: 0.875rem;
+}

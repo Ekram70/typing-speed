@@ -4,6 +4,14 @@
   width: 6.875rem;
   height: 6.875rem;
   text-align: center;
+  margin-right: 4rem;
+}
+
+@media screen and (max-width: 600px) {
+  .countdown {
+    margin-right: auto;
+    margin-top: 25px;
+  }
 }
 
 .countdown_number {
@@ -15,29 +23,32 @@
   height: 100%;
 }
 
-h5 {
+.time {
   font-size: calc(1.71098rem + 0.87648 * (100vw - 36rem) / 39);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.03em;
 }
 
-h6 {
+.seconds {
   font-weight: 400;
   font-size: 0.875rem;
   color: #1b1b20;
 }
 
-svg {
+.svg {
   position: absolute;
   top: 0;
   right: 0;
   width: 6.875rem;
   height: 6.875rem;
   transform: rotate(270deg);
+  background-color: #fff;
+  border-radius: 50%;
+  z-index: -1;
 }
 
-svg circle {
+.circle {
   stroke-dasharray: 332px;
   stroke-dashoffset: 0px;
   stroke-linecap: round;
