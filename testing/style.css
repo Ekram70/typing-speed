@@ -1,0 +1,36 @@
+* {
+  outline: 0;
+}
+
+#root {
+  display: flex;
+  border: 1px solid;
+  padding: 5px;
+  caret-color: black;
+  cursor: pointer;
+  line-height: 25px;
+}
+
+#root > div {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 50%;
+}
+
+#sample {
+  color: gray;
+}
+
+#output {
+  text-align: right;
+  float: right;
+}
+
+span {
+  display: inline-block;
+}
+
+span:not(:last-child) {
+  margin-right: 2px;
+  display: inline-block;
+}
