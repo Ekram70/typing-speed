@@ -1,0 +1,31 @@
+.sample,
+.output {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 50%;
+  line-height: 60px;
+}
+
+.sample {
+  color: #1b1b20;
+  text-align: left;
+}
+
+.output {
+  color: #06f;
+  text-align: right;
+  float: right;
+}
+
+.sample span:not(:last-child),
+.output span:not(:last-child) {
+  margin-right: 5px;
+}
+
+.output span:last-child {
+  border: 1px solid transparent;
+}
+
+.grey {
+  color: #ababb0;
+}

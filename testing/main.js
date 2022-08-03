@@ -13,48 +13,80 @@ for (let i = 0; i < text.length; i++) {
 
 let sampleSpans = document.querySelectorAll('#sample span');
 let outputSpans = document.querySelectorAll('#output span');
+let lastOutputSpan = outputSpans[outputSpans.length - 1];
+
 let i = 0;
 
 root.addEventListener('click', function () {
-  outputSpans[outputSpans.length - 1].setAttribute('contenteditable', true);
+  lastOutputSpan.setAttribute('contenteditable', true);
 
   // move cursor to last
   const selection = window.getSelection();
   const range = document.createRange();
   selection.removeAllRanges();
-  range.selectNodeContents(outputSpans[outputSpans.length - 1]);
+  range.selectNodeContents(lastOutputSpan);
   range.collapse(false);
   selection.addRange(range);
 
-  outputSpans[outputSpans.length - 1].focus();
+  lastOutputSpan.focus();
 });
 
-outputSpans[outputSpans.length - 1].addEventListener(
-  'keypress',
-  function (event) {
-    keyActions(event);
-  }
-);
+lastOutputSpan.addEventListener('keydown', function (event) {
+  handleKeyDown(event);
+});
 
-function keyActions(e) {
-  if (e.key == ' ') {
+lastOutputSpan.addEventListener('keyup', function (event) {
+  handleKeyUp(event);
+});
+
+lastOutputSpan.addEventListener('keypress', function (event) {
+  handleKeyPress(event);
+});
+
+function handleKeyDown(e) {
+  if (e.key === ' ') {
     e.preventDefault();
     sampleSpans[i].remove();
     i++;
 
-    let text = outputSpans[outputSpans.length - 1].innerText.trim();
+    console.log(text[i - 1]);
+
+    let spanText = lastOutputSpan.innerText.trim();
     let span = document.createElement('span');
-    span.innerText = text;
+    span.innerText = spanText;
 
-    outputSpans[outputSpans.length - 1].innerHTML = '';
-    outputSpans[outputSpans.length - 1].insertAdjacentElement(
-      'beforebegin',
-      span
-    );
+    lastOutputSpan.innerHTML = '';
+    lastOutputSpan.insertAdjacentElement('beforebegin', span);
 
-    outputSpans[outputSpans.length - 1].focus();
+    if (text[i - 1] !== spanText) {
+      lastOutputSpan.previousElementSibling.style.color = 'red';
+      lastOutputSpan.previousElementSibling.style.textDecoration =
+        'line-through';
+    }
+
+    lastOutputSpan.focus();
   }
 
+  let firstChar = lastOutputSpan.innerText.slice(-1);
+
+  if (e.key === 'Backspace') {
+    if (lastOutputSpan.style.color !== 'red') {
+      sampleSpans[i].innerText = firstChar + sampleSpans[i].innerText;
+    }
+  }
+}
+
+function handleKeyUp(e) {
+  if (!text[i].startsWith(lastOutputSpan.innerText)) {
+    lastOutputSpan.style.color = 'red';
+    lastOutputSpan.style.textDecoration = 'line-through';
+  } else {
+    lastOutputSpan.style.color = 'black';
+    lastOutputSpan.style.textDecoration = 'none';
+  }
+}
+
+function handleKeyPress(e) {
   if (e.key === sampleSpans[i].innerText[0]) {
     sampleSpans[i].innerText = sampleSpans[i].innerText.substring(1);
   }

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Box from '../components/Box';
+import Textarea from '../components/Textarea';
 import Timer from '../components/Timer';
 import styles from '../styles/Main.module.css';
 
@@ -42,14 +43,9 @@ const Main = () => {
           <Box text="% accuracy" value={false} />
         </div>
       </div>
-      <div className={styles.textcontent}>
-        <textarea
-          className={styles.textarea}
-          onKeyPress={timer}
-          onChange={(event) => handleText(event)}
-          placeholder="Hi bro"
-          value={placeText}
-        />
+      <div className={styles.textarea} onClick={() => 'true'}>
+        <span className={styles.tooltip}>Start Typing</span>
+        <Textarea />
       </div>
     </>
   );
