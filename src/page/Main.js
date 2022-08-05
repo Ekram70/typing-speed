@@ -1,33 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '../components/Box';
 import Textarea from '../components/Textarea';
 import Timer from '../components/Timer';
+import paragraph from '../data/paragraph';
 import styles from '../styles/Main.module.css';
 
 const Main = () => {
-  const [timerOn, setTimerOn] = useState(false);
-  const [count, setCount] = useState(0);
-  const [placeText, setPlaceText] = useState('');
+  const [textArr, setTextArr] = useState([]);
 
-  function timer() {
-    setTimerOn(true);
-  }
-
-  function handleText(event) {
-    setPlaceText(event.target.value);
-    if (event.target.value.length === 1) {
-      const interval = setInterval(() => {
-        setCount((prevCount) => {
-          if (prevCount >= 60) {
-            clearInterval(interval);
-            return 0;
-          } else {
-            return prevCount + 1;
-          }
-        });
-      }, 1000);
-    }
-  }
+  useEffect(() => {
+    setTextArr(paragraph[Math.floor(Math.random() * 9)].split(' '));
+  }, []);
 
   return (
     <>
@@ -36,17 +19,14 @@ const Main = () => {
         <h1>Test your typing skills</h1>
       </div>
       <div className={styles.container}>
-        <Timer running={timerOn} />
+        <Timer />
         <div className={styles.boxes}>
           <Box text="words/min" value={false} />
           <Box text="chars/min" value={false} />
           <Box text="% accuracy" value={false} />
         </div>
       </div>
-      <div className={styles.textarea} onClick={() => 'true'}>
-        <span className={styles.tooltip}>Start Typing</span>
-        <Textarea />
-      </div>
+      <Textarea text={textArr} />
     </>
   );
 };
