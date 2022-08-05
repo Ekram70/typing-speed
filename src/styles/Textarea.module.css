@@ -84,7 +84,7 @@
   border: 1px solid transparent;
 }
 
-.grey {
+.output span:not(:last-child) {
   color: #ababb0;
 }
 
