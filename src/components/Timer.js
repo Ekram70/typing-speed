@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import styles from '../styles/Timer.module.css';
 
-const Timer = ({ running }) => {
+const Timer = ({ on, stop }) => {
   const [time, setTime] = useState(60);
-  // const [offset, setOffset] = useState(0);
 
   useEffect(() => {
-    if (running) {
+    if (on) {
       const interval = setInterval(() => {
         setTime((prevTime) => {
-          if (prevTime <= 0) {
+          if (prevTime === 0) {
             clearInterval(interval);
             return 0;
           } else {
@@ -18,7 +17,7 @@ const Timer = ({ running }) => {
         });
       }, 1000);
     }
-  }, [running]);
+  }, [on]);
 
   return (
     <div className={styles.countdown}>
@@ -31,7 +30,7 @@ const Timer = ({ running }) => {
           r="53"
           cx="53"
           cy="53"
-          style={{ animationPlayState: running ? 'running' : 'paused' }}
+          style={{ animationPlayState: on ? 'running' : 'paused' }}
           className={styles.circle}
         ></circle>
       </svg>

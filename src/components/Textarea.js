@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from '../styles/Textarea.module.css';
 
-const Textarea = ({ text }) => {
+const Textarea = ({ text, words, chars, acc, timer }) => {
   const [textArr, setTextArr] = useState([]);
   const [outputArr, setOutputArr] = useState([]);
   const [isActive, setIsActive] = useState(true);
   const [isValid, setIsValid] = useState(true);
+  const [editable, setEditable] = useState(true);
   const [count, setCount] = useState(0);
   const editSpan = useRef(null);
   const tooltip = useRef(null);
@@ -43,6 +44,12 @@ const Textarea = ({ text }) => {
     } else if (e.key !== ' ') {
       setIsValid(false);
     }
+
+    timer(true);
+
+    setTimeout(() => {
+      setEditable(false);
+    }, 1000 * 60);
   };
 
   const handleKeyDown = (e) => {
@@ -74,40 +81,61 @@ const Textarea = ({ text }) => {
     if (e.key === ' ') {
       setCount((prevCount) => prevCount + 1);
 
+      let spanText = editSpan.current.innerText.trimEnd();
       setOutputArr((prevArr) => {
-        let spanText = editSpan.current.innerText.trimEnd();
         if (text[count] !== spanText) {
           spanText += 'xxxxx';
         }
         editSpan.current.innerText = '';
         return [...prevArr, spanText];
       });
+
+      if (text[count] === spanText) {
+        words(1);
+        chars(spanText.length);
+      }
+
+      acc(outputArr.length + 1);
     }
   };
 
   return (
-    <div className={styles.textarea} onClick={startFocus}>
-      <span
-        ref={tooltip}
-        className={styles.tooltip}
-        style={{ opacity: isActive ? '1' : 0 }}
+    <>
+      <div
+        className={styles.textarea}
+        style={{ display: editable ? 'flex' : 'none' }}
+        onClick={startFocus}
       >
-        Start Typing
-      </span>
-      <div className={styles.output}>
-        {generateSpans(outputArr)}
         <span
-          ref={editSpan}
-          className={isValid ? '' : styles.invalid}
-          spellCheck="false"
-          contentEditable
-          onKeyPress={handleKeyPress}
-          onKeyDown={handleKeyDown}
-          onKeyUp={handleKeyUp}
-        ></span>
+          ref={tooltip}
+          className={styles.tooltip}
+          style={{ opacity: isActive ? '1' : 0 }}
+        >
+          Start Typing
+        </span>
+        <div className={styles.output}>
+          {generateSpans(outputArr)}
+          <span
+            ref={editSpan}
+            className={isValid ? '' : styles.invalid}
+            spellCheck="false"
+            contentEditable={editable ? 'true' : 'false'}
+            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyDown}
+            onKeyUp={handleKeyUp}
+          ></span>
+        </div>
+        <div className={styles.sample}>{generateSpans(textArr)}</div>
       </div>
-      <div className={styles.sample}>{generateSpans(textArr)}</div>
-    </div>
+      <div
+        className={styles.retry}
+        style={{ display: editable ? 'none' : 'block' }}
+      >
+        <button className={styles.btn} onClick={() => window.location.reload()}>
+          Retry
+        </button>
+      </div>
+    </>
   );
 };
 

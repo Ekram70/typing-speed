@@ -91,3 +91,28 @@
 .invalid {
   text-decoration: line-through;
 }
+
+.retry {
+  margin-top: 40px;
+}
+
+.btn {
+  background-color: #06f;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 15px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #ffd000;
+  color: #1b1b20;
+  transition: 0.3s ease;
+}
+
+.btn:active {
+  transform: scale(0.9);
+}
